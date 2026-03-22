@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Domaine de la Croix d'Or — Pommard, Bourgogne</title>
+<meta name="description" content="Domaine viticole familial à Pommard, Bourgogne. Vins de Pommard, Beaune Premier Cru et Volnay. Dégustations sur rendez-vous.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --noir: #0a0806;
+  --brun: #1a1208;
+  --or: #c9a84c;
+  --or-pale: #e8d5a0;
+  --bordeaux: #6b1a2a;
+  --creme: #f5f0e8;
+  --creme-2: #ede5d4;
+  --texte: #2a1f0f;
+  --gris-chaud: #8a7a6a;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  background: var(--creme);
+  color: var(--texte);
+  overflow-x: hidden;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 48px;
+  transition: background .4s, padding .3s;
+}
+nav.scrolled {
+  background: rgba(10,8,6,.95);
+  backdrop-filter: blur(12px);
+  padding: 14px 48px;
+  border-bottom: 1px solid rgba(201,168,76,.15);
+}
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--or-pale);
+  letter-spacing: .1em;
+  text-decoration: none;
+}
+.nav-links { display: flex; gap: 36px; list-style: none; }
+.nav-links a {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.65);
+  text-decoration: none;
+  transition: color .2s;
+}
+.nav-links a:hover { color: var(--or); }
+.nav-lang {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.nav-lang button {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color .2s;
+  padding: 4px 8px;
+}
+.nav-lang button.active {
+  color: var(--or);
+  border-bottom: 1px solid var(--or);
+}
+.nav-lang button:not(.active) { color: rgba(255,255,255,.4); }
+
+/* hamburger mobile */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 4px;
+}
+.hamburger span {
+  display: block;
+  width: 22px;
+  height: 1px;
+  background: var(--or-pale);
+  transition: .3s;
+}
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: var(--noir);
+  z-index: 99;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 36px;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  font-weight: 300;
+  color: var(--creme);
+  text-decoration: none;
+  letter-spacing: .08em;
+}
+.mobile-menu .close-btn {
+  position: absolute;
+  top: 24px; right: 28px;
+  background: none;
+  border: none;
+  color: var(--or);
+  font-size: 28px;
+  cursor: pointer;
+}
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh;
+  background: var(--noir);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 70%, rgba(107,26,42,.35) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 40% at 20% 20%, rgba(201,168,76,.08) 0%, transparent 60%);
+}
+.hero-lines {
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 79px,
+    rgba(201,168,76,.04) 80px
+  );
+}
+.hero-content {
+  position: relative;
+  text-align: center;
+  padding: 0 24px;
+  animation: fadeUp .9s ease both;
+}
+.hero-eyebrow {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .35em;
+  text-transform: uppercase;
+  color: var(--or);
+  margin-bottom: 28px;
+}
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(52px, 8vw, 96px);
+  font-weight: 300;
+  color: var(--creme);
+  line-height: 1.0;
+  margin-bottom: 12px;
+}
+.hero-title em {
+  font-style: italic;
+  color: var(--or-pale);
+}
+.hero-subtitle {
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.4);
+  margin-bottom: 52px;
+}
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 15px 36px;
+  border: 1px solid var(--or);
+  color: var(--or);
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  transition: background .3s, color .3s;
+}
+.hero-cta:hover {
+  background: var(--or);
+  color: var(--noir);
+}
+.hero-scroll {
+  position: absolute;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255,255,255,.3);
+  font-size: 9px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+}
+.scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, rgba(201,168,76,.6), transparent);
+  animation: scrollLine 2s ease-in-out infinite;
+}
+@keyframes scrollLine {
+  0% { transform: scaleY(0); transform-origin: top; }
+  50% { transform: scaleY(1); transform-origin: top; }
+  51% { transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+/* ─── SECTION GÉNÉRALE ─── */
+section { padding: 100px 48px; }
+.section-inner { max-width: 1100px; margin: 0 auto; }
+.section-tag {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--or);
+  margin-bottom: 20px;
+}
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(34px, 4vw, 54px);
+  font-weight: 300;
+  line-height: 1.15;
+  margin-bottom: 28px;
+}
+.section-title em { font-style: italic; }
+.divider-or {
+  width: 48px;
+  height: 1px;
+  background: var(--or);
+  margin-bottom: 36px;
+}
+
+/* ─── HISTOIRE ─── */
+.histoire { background: var(--creme); }
+.histoire-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.histoire-img {
+  position: relative;
+  aspect-ratio: 4/5;
+  overflow: hidden;
+}
+.histoire-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: sepia(.2) contrast(1.05);
+}
+.histoire-img::before {
+  content: '';
+  position: absolute;
+  inset: -12px 12px 12px -12px;
+  border: 1px solid var(--or);
+  z-index: -1;
+}
+.histoire-text p {
+  font-size: 16px;
+  line-height: 1.85;
+  color: #4a3828;
+  margin-bottom: 20px;
+}
+.histoire-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 40px;
+  padding-top: 40px;
+  border-top: 1px solid var(--creme-2);
+}
+.stat { text-align: center; }
+.stat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 38px;
+  font-weight: 300;
+  color: var(--bordeaux);
+  display: block;
+}
+.stat-label {
+  font-size: 10px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--gris-chaud);
+  margin-top: 4px;
+}
+
+/* ─── CUVÉES ─── */
+.cuvees { background: var(--brun); }
+.cuvees .section-title { color: var(--creme); }
+.cuvees .section-tag { color: var(--or); }
+.cuvees-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-top: 56px;
+}
+.cuvee-card {
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(201,168,76,.15);
+  padding: 36px 28px;
+  transition: border-color .3s, transform .3s;
+  cursor: default;
+}
+.cuvee-card:hover {
+  border-color: rgba(201,168,76,.5);
+  transform: translateY(-4px);
+}
+.cuvee-appellation {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--or);
+  margin-bottom: 14px;
+}
+.cuvee-nom {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
+  font-weight: 400;
+  color: var(--creme);
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+.cuvee-millesime {
+  font-size: 12px;
+  color: rgba(255,255,255,.35);
+  margin-bottom: 20px;
+  letter-spacing: .08em;
+}
+.cuvee-desc {
+  font-size: 13.5px;
+  line-height: 1.75;
+  color: rgba(255,255,255,.55);
+  margin-bottom: 24px;
+}
+.cuvee-sep {
+  width: 32px;
+  height: 1px;
+  background: var(--or);
+  margin-bottom: 20px;
+}
+.cuvee-notes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.note {
+  font-size: 10px;
+  padding: 4px 12px;
+  border: 1px solid rgba(201,168,76,.25);
+  color: var(--or-pale);
+  border-radius: 2px;
+  letter-spacing: .08em;
+}
+
+/* ─── DÉGUSTATIONS ─── */
+.degustations { background: var(--creme-2); }
+.degu-grid {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 80px;
+  align-items: start;
+  margin-top: 56px;
+}
+.degu-options {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.degu-option {
+  padding: 24px 28px;
+  border: 1px solid rgba(107,26,42,.2);
+  background: var(--creme);
+  transition: border-color .3s;
+}
+.degu-option:hover { border-color: var(--bordeaux); }
+.degu-option-nom {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--bordeaux);
+  margin-bottom: 6px;
+}
+.degu-option-desc {
+  font-size: 13px;
+  color: var(--gris-chaud);
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+.degu-option-prix {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .08em;
+  color: var(--texte);
+}
+/* Form */
+.degu-form-wrap {
+  background: var(--noir);
+  padding: 40px 36px;
+  position: sticky;
+  top: 100px;
+}
+.degu-form-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px;
+  color: var(--creme);
+  margin-bottom: 6px;
+}
+.degu-form-sub {
+  font-size: 11px;
+  color: rgba(255,255,255,.35);
+  letter-spacing: .08em;
+  margin-bottom: 28px;
+}
+.form-group { margin-bottom: 18px; }
+.form-group label {
+  display: block;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.4);
+  margin-bottom: 8px;
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(201,168,76,.2);
+  color: var(--creme);
+  padding: 12px 16px;
+  font-family: 'Jost', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  outline: none;
+  transition: border-color .2s;
+  appearance: none;
+  border-radius: 0;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--or);
+}
+.form-group textarea { height: 80px; resize: none; }
+.form-group select option { background: var(--noir); }
+.btn-submit {
+  width: 100%;
+  padding: 15px;
+  background: var(--or);
+  color: var(--noir);
+  border: none;
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background .2s, opacity .2s;
+  margin-top: 8px;
+}
+.btn-submit:hover { opacity: .85; }
+
+/* ─── CONTACT ─── */
+.contact { background: var(--noir); }
+.contact .section-title { color: var(--creme); }
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  margin-top: 56px;
+}
+.contact-info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 32px;
+}
+.contact-info-label {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: var(--or);
+}
+.contact-info-value {
+  font-size: 15px;
+  color: var(--creme);
+  line-height: 1.6;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+}
+.contact-info-value a {
+  color: var(--creme);
+  text-decoration: none;
+  transition: color .2s;
+}
+.contact-info-value a:hover { color: var(--or); }
+.map-placeholder {
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(201,168,76,.15);
+  height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,.2);
+  font-size: 12px;
+  letter-spacing: .1em;
+}
+
+/* ─── FOOTER ─── */
+footer {
+  background: #060403;
+  padding: 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(201,168,76,.1);
+}
+.footer-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  color: var(--or-pale);
+  letter-spacing: .08em;
+}
+.footer-copy {
+  font-size: 11px;
+  color: rgba(255,255,255,.2);
+  letter-spacing: .06em;
+}
+
+/* ─── LANGUE ─── */
+.fr { display: block; }
+.en { display: none; }
+body.lang-en .fr { display: none; }
+body.lang-en .en { display: block; }
+/* pour les inline */
+span.fr { display: inline; }
+span.en { display: none; }
+body.lang-en span.fr { display: none; }
+body.lang-en span.en { display: inline; }
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 900px) {
+  section { padding: 72px 24px; }
+  nav { padding: 18px 24px; }
+  nav.scrolled { padding: 12px 24px; }
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .histoire-grid,
+  .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+  .histoire-img { aspect-ratio: 16/9; }
+  .histoire-img::before { display: none; }
+  .cuvees-grid { grid-template-columns: 1fr; }
+  .degu-grid { grid-template-columns: 1fr; }
+  .degu-form-wrap { position: static; }
+  footer { flex-direction: column; gap: 12px; text-align: center; }
+}
+@media (max-width: 600px) {
+  .histoire-stats { grid-template-columns: 1fr 1fr; }
+  .hero-title { font-size: 42px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">Domaine de la Croix d'Or</a>
+  <ul class="nav-links">
+    <li><a href="#histoire"><span class="fr">L'histoire</span><span class="en">Our story</span></a></li>
+    <li><a href="#cuvees"><span class="fr">Les cuvées</span><span class="en">Our wines</span></a></li>
+    <li><a href="#degustations"><span class="fr">Dégustations</span><span class="en">Tastings</span></a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-lang">
+    <button class="active" onclick="setLang('fr')">FR</button>
+    <button onclick="setLang('en')">EN</button>
+  </div>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MENU MOBILE -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="close-btn" onclick="toggleMenu()">✕</button>
+  <a href="#histoire" onclick="toggleMenu()"><span class="fr">L'histoire</span><span class="en">Our story</span></a>
+  <a href="#cuvees" onclick="toggleMenu()"><span class="fr">Les cuvées</span><span class="en">Our wines</span></a>
+  <a href="#degustations" onclick="toggleMenu()"><span class="fr">Dégustations</span><span class="en">Tastings</span></a>
+  <a href="#contact" onclick="toggleMenu()">Contact</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="accueil">
+  <div class="hero-bg"></div>
+  <div class="hero-lines"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">
+      <span class="fr">Pommard · Bourgogne · Depuis 1897</span>
+      <span class="en">Pommard · Burgundy · Since 1897</span>
+    </p>
+    <h1 class="hero-title">
+      <span class="fr">Domaine de<br><em>la Croix d'Or</em></span>
+      <span class="en">Domaine de<br><em>la Croix d'Or</em></span>
+    </h1>
+    <p class="hero-subtitle">
+      <span class="fr">Cinq générations · Vins de terroir · Pommard</span>
+      <span class="en">Five generations · Terroir wines · Pommard</span>
+    </p>
+    <a href="#degustations" class="hero-cta">
+      <span class="fr">Réserver une dégustation</span>
+      <span class="en">Book a tasting</span>
+    </a>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span class="fr">Découvrir</span>
+    <span class="en">Discover</span>
+  </div>
+</section>
+
+<!-- HISTOIRE -->
+<section class="histoire" id="histoire">
+  <div class="section-inner">
+    <div class="histoire-grid">
+      <div class="histoire-img reveal">
+        <img src="https://images.unsplash.com/photo-1560493676-04071c5f467b?w=800&q=80" alt="Vignes du Domaine de la Croix d'Or à Pommard">
+      </div>
+      <div class="reveal">
+        <p class="section-tag">
+          <span class="fr">Notre histoire</span>
+          <span class="en">Our story</span>
+        </p>
+        <h2 class="section-title">
+          <span class="fr">Cinq générations au<br><em>cœur de Pommard</em></span>
+          <span class="en">Five generations at the<br><em>heart of Pommard</em></span>
+        </h2>
+        <div class="divider-or"></div>
+        <p class="fr">Fondé en 1897 par Émile Marchand, le domaine s'étend aujourd'hui sur 8 hectares de parcelles soigneusement sélectionnées. Chaque génération a perpétué l'art de révéler le caractère profond de nos terroirs bourguignons.</p>
+        <p class="en">Founded in 1897 by Émile Marchand, the estate now spans 8 hectares of carefully selected plots. Each generation has perpetuated the art of revealing the profound character of our Burgundian terroirs.</p>
+        <p class="fr" style="margin-top:16px">Nos vignes en agriculture raisonnée, travaillées à cheval sur les parcelles les plus pentues, produisent des vins d'une grande sincérité — des Pommard aux tanins soyeux, des Beaune d'une élégance lumineuse.</p>
+        <p class="en" style="margin-top:16px">Our sustainably farmed vines, worked by horse on the steepest plots, produce wines of great sincerity — Pommards with silky tannins, Beaunes of luminous elegance.</p>
+        <div class="histoire-stats">
+          <div class="stat">
+            <span class="stat-num">8</span>
+            <span class="stat-label">
+              <span class="fr">Hectares</span>
+              <span class="en">Hectares</span>
+            </span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">5</span>
+            <span class="stat-label">
+              <span class="fr">Générations</span>
+              <span class="en">Generations</span>
+            </span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">9</span>
+            <span class="stat-label">
+              <span class="fr">Appellations</span>
+              <span class="en">Appellations</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CUVÉES -->
+<section class="cuvees" id="cuvees">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-tag">
+        <span class="fr">Nos vins</span>
+        <span class="en">Our wines</span>
+      </p>
+      <h2 class="section-title" style="color:var(--creme)">
+        <span class="fr">Les cuvées<br><em>de la propriété</em></span>
+        <span class="en">The estate's<br><em>cuvées</em></span>
+      </h2>
+      <div class="divider-or"></div>
+    </div>
+    <div class="cuvees-grid">
+      <div class="cuvee-card reveal">
+        <p class="cuvee-appellation">Pommard 1er Cru</p>
+        <h3 class="cuvee-nom">Les Rugiens</h3>
+        <p class="cuvee-millesime">
+          <span class="fr">Millésime 2021</span>
+          <span class="en">Vintage 2021</span>
+        </p>
+        <p class="cuvee-desc fr">Nez profond de cerise noire et de violette. Bouche ample, tanins serrés mais soyeux, longue finale épicée. Le vin emblématique du domaine.</p>
+        <p class="cuvee-desc en">Deep nose of black cherry and violet. Full palate, tight yet silky tannins, long spiced finish. The estate's flagship wine.</p>
+        <div class="cuvee-sep"></div>
+        <div class="cuvee-notes">
+          <span class="note fr">Cerise noire</span>
+          <span class="note en">Black cherry</span>
+          <span class="note fr">Violette</span>
+          <span class="note en">Violet</span>
+          <span class="note fr">Épices</span>
+          <span class="note en">Spices</span>
+        </div>
+      </div>
+      <div class="cuvee-card reveal" style="transition-delay:.1s">
+        <p class="cuvee-appellation">Beaune 1er Cru</p>
+        <h3 class="cuvee-nom">Les Grèves</h3>
+        <p class="cuvee-millesime">
+          <span class="fr">Millésime 2022</span>
+          <span class="en">Vintage 2022</span>
+        </p>
+        <p class="cuvee-desc fr">Robe rubis aux reflets grenat. Arômes délicats de fraise des bois et de rose. Bouche légère et aérienne, très grande persistance aromatique.</p>
+        <p class="cuvee-desc en">Ruby robe with garnet hues. Delicate aromas of wild strawberry and rose. Light and airy palate, very long aromatic persistence.</p>
+        <div class="cuvee-sep"></div>
+        <div class="cuvee-notes">
+          <span class="note fr">Fraise des bois</span>
+          <span class="note en">Wild strawberry</span>
+          <span class="note fr">Rose</span>
+          <span class="note en">Rose</span>
+          <span class="note fr">Minéral</span>
+          <span class="note en">Mineral</span>
+        </div>
+      </div>
+      <div class="cuvee-card reveal" style="transition-delay:.2s">
+        <p class="cuvee-appellation">Meursault</p>
+        <h3 class="cuvee-nom">Les Charmes</h3>
+        <p class="cuvee-millesime">
+          <span class="fr">Millésime 2022</span>
+          <span class="en">Vintage 2022</span>
+        </p>
+        <p class="cuvee-desc fr">Notre seul vin blanc. Chardonnay élevé 14 mois en fût. Beurre frais, noisette grillée, zeste de citron confit. Tension et richesse en équilibre parfait.</p>
+        <p class="cuvee-desc en">Our only white wine. Chardonnay aged 14 months in barrel. Fresh butter, toasted hazelnut, candied lemon zest. Tension and richness in perfect balance.</p>
+        <div class="cuvee-sep"></div>
+        <div class="cuvee-notes">
+          <span class="note fr">Beurre frais</span>
+          <span class="note en">Fresh butter</span>
+          <span class="note fr">Noisette</span>
+          <span class="note en">Hazelnut</span>
+          <span class="note fr">Citron confit</span>
+          <span class="note en">Candied lemon</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DÉGUSTATIONS -->
+<section class="degustations" id="degustations">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-tag">
+        <span class="fr">Visites & Dégustations</span>
+        <span class="en">Visits & Tastings</span>
+      </p>
+      <h2 class="section-title">
+        <span class="fr">Venez découvrir<br><em>notre domaine</em></span>
+        <span class="en">Come and discover<br><em>our estate</em></span>
+      </h2>
+      <div class="divider-or"></div>
+    </div>
+    <div class="degu-grid">
+      <div class="degu-options reveal">
+        <div class="degu-option">
+          <div class="degu-option-nom fr">Dégustation Découverte</div>
+          <div class="degu-option-nom en">Discovery Tasting</div>
+          <div class="degu-option-desc fr">3 vins emblématiques du domaine, présentation du terroir et de nos méthodes de vinification. Durée : 45 min.</div>
+          <div class="degu-option-desc en">3 iconic estate wines, presentation of the terroir and our winemaking methods. Duration: 45 min.</div>
+          <div class="degu-option-prix fr">15 € / personne</div>
+          <div class="degu-option-prix en">€15 / person</div>
+        </div>
+        <div class="degu-option">
+          <div class="degu-option-nom fr">Visite des Caves & Dégustation</div>
+          <div class="degu-option-nom en">Cellar Tour & Tasting</div>
+          <div class="degu-option-desc fr">Visite guidée des caves voûtées du XVIIIe siècle, explication du processus d'élevage, dégustation de 5 cuvées dont une cuvée de prestige. Durée : 1h30.</div>
+          <div class="degu-option-desc en">Guided tour of the 18th-century vaulted cellars, explanation of the aging process, tasting of 5 cuvées including a prestige wine. Duration: 1h30.</div>
+          <div class="degu-option-prix fr">28 € / personne</div>
+          <div class="degu-option-prix en">€28 / person</div>
+        </div>
+        <div class="degu-option">
+          <div class="degu-option-nom fr">Séjour Vigneron (Groupes)</div>
+          <div class="degu-option-nom en">Winemaker Experience (Groups)</div>
+          <div class="degu-option-desc fr">Journée complète avec participation aux travaux de la vigne selon la saison, pique-nique parmi les vignes, dégustation grand format. Jusqu'à 15 personnes.</div>
+          <div class="degu-option-desc en">Full day with participation in vineyard work depending on the season, picnic among the vines, full tasting experience. Up to 15 people.</div>
+          <div class="degu-option-prix fr">Sur devis · Groupes 6–15 pers.</div>
+          <div class="degu-option-prix en">On request · Groups 6–15 people</div>
+        </div>
+      </div>
+      <div class="degu-form-wrap reveal">
+        <h3 class="degu-form-title fr">Réserver</h3>
+        <h3 class="degu-form-title en">Book now</h3>
+        <p class="degu-form-sub fr">Réponse sous 24h · Ouvert lun–sam</p>
+        <p class="degu-form-sub en">Reply within 24h · Open Mon–Sat</p>
+        <form onsubmit="submitForm(event)">
+          <div class="form-group">
+            <label class="fr">Votre nom</label>
+            <label class="en">Your name</label>
+            <input type="text" placeholder="Jean Dupont" required>
+          </div>
+          <div class="form-group">
+            <label class="fr">Email</label>
+            <label class="en">Email</label>
+            <input type="email" placeholder="jean@exemple.fr" required>
+          </div>
+          <div class="form-group">
+            <label class="fr">Type de visite</label>
+            <label class="en">Visit type</label>
+            <select required>
+              <option value="" class="fr">Choisir...</option>
+              <option value="" class="en">Choose...</option>
+              <option class="fr">Dégustation Découverte — 15€</option>
+              <option class="en">Discovery Tasting — €15</option>
+              <option class="fr">Visite Caves & Dégustation — 28€</option>
+              <option class="en">Cellar Tour & Tasting — €28</option>
+              <option class="fr">Séjour Vigneron (groupe)</option>
+              <option class="en">Winemaker Experience (group)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="fr">Date souhaitée</label>
+            <label class="en">Preferred date</label>
+            <input type="date" required>
+          </div>
+          <div class="form-group">
+            <label class="fr">Message (optionnel)</label>
+            <label class="en">Message (optional)</label>
+            <textarea placeholder="..."></textarea>
+          </div>
+          <button type="submit" class="btn-submit">
+            <span class="fr">Envoyer la demande</span>
+            <span class="en">Send request</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-tag">Contact</p>
+      <h2 class="section-title">
+        <span class="fr">Nous trouver</span>
+        <span class="en">Find us</span>
+      </h2>
+      <div class="divider-or"></div>
+    </div>
+    <div class="contact-grid">
+      <div class="reveal">
+        <div class="contact-info-item">
+          <span class="contact-info-label fr">Adresse</span>
+          <span class="contact-info-label en">Address</span>
+          <span class="contact-info-value">12 Rue de la Croix d'Or<br>21630 Pommard, France</span>
+        </div>
+        <div class="contact-info-item">
+          <span class="contact-info-label fr">Téléphone</span>
+          <span class="contact-info-label en">Phone</span>
+          <span class="contact-info-value"><a href="tel:+33380000000">+33 (0)3 80 00 00 00</a></span>
+        </div>
+        <div class="contact-info-item">
+          <span class="contact-info-label">Email</span>
+          <span class="contact-info-value"><a href="mailto:contact@domaine-croixdor.fr">contact@domaine-croixdor.fr</a></span>
+        </div>
+        <div class="contact-info-item">
+          <span class="contact-info-label fr">Horaires</span>
+          <span class="contact-info-label en">Opening hours</span>
+          <span class="contact-info-value fr">Lun – Sam : 9h – 12h / 14h – 18h<br>Dimanche : sur rendez-vous</span>
+          <span class="contact-info-value en">Mon – Sat: 9am – 12pm / 2pm – 6pm<br>Sunday: by appointment</span>
+        </div>
+      </div>
+      <div class="reveal map-placeholder">
+        <span style="font-size:11px;letter-spacing:.1em;opacity:.4">
+          <span class="fr">Carte Google Maps</span>
+          <span class="en">Google Maps</span>
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-logo">Domaine de la Croix d'Or</span>
+  <span class="footer-copy fr">© 2025 · Pommard, Bourgogne</span>
+  <span class="footer-copy en">© 2025 · Pommard, Burgundy</span>
+</footer>
+
+<script>
+// NAV scroll
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// Langue
+function setLang(lang) {
+  document.body.classList.toggle('lang-en', lang === 'en');
+  document.querySelectorAll('.nav-lang button').forEach((btn, i) => {
+    btn.classList.toggle('active', (lang === 'fr' && i === 0) || (lang === 'en' && i === 1));
+  });
+}
+
+// Menu mobile
+function toggleMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+// Reveal on scroll
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.12 });
+reveals.forEach(r => observer.observe(r));
+
+// Form submit
+function submitForm(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('.btn-submit');
+  btn.textContent = document.body.classList.contains('lang-en') ? '✓ Request sent!' : '✓ Demande envoyée !';
+  btn.style.background = '#3B6D11';
+  btn.style.color = '#fff';
+}
+</script>
+</body>
+</html>
